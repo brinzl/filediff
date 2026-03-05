@@ -26,6 +26,14 @@ export default defineConfig({
     : {
         outDir: path.resolve(__dirname, 'dist/client'),
         emptyOutDir: true,
+        chunkSizeWarningLimit: 800,
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'radix-vendor': ['radix-ui'],
+            },
+          },
+        },
       },
   server: {
     proxy: {

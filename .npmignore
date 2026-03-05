@@ -15,4 +15,3 @@ bun.lock
 components.json
 tsconfig.json
 vite.config.ts
-screenshot.png

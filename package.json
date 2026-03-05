@@ -1,6 +1,6 @@
 {
   "name": "@brinzl/filediff",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "A browser-based git diff viewer",
   "author": "Brinsil Elias",
