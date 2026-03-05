@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { buildTree } from './tree';
 import { parsePorcelain } from './utils';
@@ -93,22 +94,28 @@ export default function registerRoutes(app: FileDiffServer, config: RouteConfig)
     response.json({ diff: result });
   });
 
-  // GET /api/diff/file?path=<filepath> — diff for a specific file
+  // GET /api/diff/file?path=<filepath> — old + new file contents for a specific file
   app.use('/api/diff/file', async (req: IncomingMessage, res: ServerResponse) => {
     const { query } = req as AugmentedRequest;
     const response = res as AugmentedResponse;
     const filePath = query.get('path');
-
     if (!filePath) {
       response.json({ error: 'Missing "path" query parameter' }, 400);
       return;
     }
 
-    let result = await git.diff(repo, '--', filePath);
-    if (!result) {
-      result = await git.diff({ $cwd: workTree, $ignoreExitCode: true }, { 'no-index': true }, '/dev/null', filePath);
+    const oldContents = await git.show({ ...repo, $nullOnError: true }, `:${filePath}`);
+    let newContents: string;
+    try {
+      newContents = await readFile(path.join(workTree, filePath), 'utf-8');
+    } catch {
+      newContents = '';
     }
-    response.json({ diff: result });
+
+    response.json({
+      oldFile: { name: filePath, contents: oldContents ?? '' },
+      newFile: { name: filePath, contents: newContents },
+    });
   });
 
   // GET /api/diff — unstaged changes (working tree vs index)
@@ -155,14 +162,12 @@ export default function registerRoutes(app: FileDiffServer, config: RouteConfig)
     const { params } = req as AugmentedRequest;
     const response = res as AugmentedResponse;
     const hash = params[0];
-
     const [info, diff] = await Promise.all([
       git.show(repo, { format: '%H%n%h%n%an%n%aI%n%s', 'no-patch': true }, hash),
       git.show(repo, { format: '' }, hash),
     ]);
 
     const lines = info.split('\n');
-
     response.json({
       hash: lines[0],
       abbrev: lines[1],

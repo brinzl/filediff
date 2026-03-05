@@ -8,9 +8,7 @@ type GitArgs = Array<string | Record<string, any>>;
 interface SpecialOptions {
   $gitDir?: string;
   $workTree?: string;
-  $cwd?: string;
   $nullOnError?: boolean;
-  $ignoreExitCode?: boolean;
 }
 
 function processArgs(args: GitArgs) {
@@ -49,12 +47,10 @@ async function git(first: string | GitArgs, ...rest: GitArgs): Promise<string | 
   try {
     const { stdout } = await execFileP('git', fullArgs, {
       maxBuffer: 10 * 1024 * 1024,
-      cwd: special.$cwd
     });
     return stdout.trim();
   } catch (err: any) {
     if (special.$nullOnError) return null;
-    if (special.$ignoreExitCode) return err.stdout?.trim() || '';
     throw new Error(err.stderr?.trim() || err.message);
   }
 }

@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { ChevronRight } from "lucide-react";
-import { FileIcon, FolderIcon } from "@react-symbols/icons/utils";
 import { SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
+const FileIcon = lazy(() => import("@react-symbols/icons/utils").then((m) => ({ default: m.FileIcon })));
+const FolderIcon = lazy(() => import("@react-symbols/icons/utils").then((m) => ({ default: m.FolderIcon })));
 
 interface TreeNode {
   type: "file" | "directory";
@@ -74,7 +76,9 @@ function DirectoryNode({ node, selectedPath, onSelect, depth, version, expandAll
         <CollapsibleTrigger asChild>
           <SidebarMenuButton className="gap-1" style={{ paddingLeft: `${depth * 8 + 8}px` }}>
             <ChevronRight className={`size-3 shrink-0 transition-transform ${open ? "rotate-90" : ""}`} />
-            <FolderIcon folderName={node.name} width={14} height={14} className="shrink-0" />
+            <Suspense fallback={<span className="size-3.5 shrink-0" />}>
+              <FolderIcon folderName={node.name} width={14} height={14} className="shrink-0" />
+            </Suspense>
             <span className="truncate">{node.name}</span>
           </SidebarMenuButton>
         </CollapsibleTrigger>
@@ -103,7 +107,9 @@ function FileNode({ node, selectedPath, onSelect, depth }: {
         style={{ paddingLeft: `${depth * 8 + 8}px` }}
       >
         <span className="size-3 shrink-0" />
-        <FileIcon fileName={node.name} autoAssign width={14} height={14} className="shrink-0" />
+        <Suspense fallback={<span className="size-3.5 shrink-0" />}>
+          <FileIcon fileName={node.name} autoAssign width={14} height={14} className="shrink-0" />
+        </Suspense>
         <span className={`truncate ${statusColor[node.status ?? ""] ?? ""}`}>{node.name}</span>
         <StatusBadge status={node.status} />
       </SidebarMenuButton>

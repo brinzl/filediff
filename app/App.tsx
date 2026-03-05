@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import {
   SidebarProvider,
   SidebarInset,
@@ -6,9 +6,10 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { AppSidebar } from "@/components/Sidebar";
-import { DiffViewer } from "@/components/DiffViewer";
 import { EmptyState } from "@/components/EmptyState";
 import { useQuery } from "@/hooks/useQuery";
+
+const DiffViewer = lazy(() => import("@/components/DiffViewer").then((m) => ({ default: m.DiffViewer })));
 
 interface TreeNode {
   type: "file" | "directory";
@@ -28,13 +29,18 @@ interface TreeResponse {
   tree: TreeNode[];
 }
 
+interface FileContents {
+  name: string;
+  contents: string;
+}
+
 interface DiffResponse {
-  diff: string;
+  oldFile: FileContents;
+  newFile: FileContents;
 }
 
 export default function App() {
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
-
   const { data: treeData } = useQuery<TreeResponse>("/api/tree");
   const { data: info } = useQuery<RepoInfo>("/api/info");
   const { data: diffData } = useQuery<DiffResponse>(
@@ -59,7 +65,7 @@ export default function App() {
         selectedPath={selectedPath}
         onFileSelect={setSelectedPath}
       />
-      <SidebarInset>
+      <SidebarInset className="min-w-0">
         <header className="flex h-10 items-center gap-2 border-b px-4 my-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
@@ -69,8 +75,14 @@ export default function App() {
           )}
         </header>
         <div className="flex-1 overflow-hidden">
-          {diffData?.diff ? (
-            <DiffViewer diff={diffData.diff} />
+          {diffData?.oldFile && diffData?.newFile ? (
+            <Suspense fallback={
+              <div className="flex h-full items-center justify-center text-muted-foreground">
+                Loading diff...
+              </div>
+            }>
+              <DiffViewer oldFile={diffData.oldFile} newFile={diffData.newFile} />
+            </Suspense>
           ) : (
             <EmptyState />
           )}
