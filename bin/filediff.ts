@@ -4,11 +4,11 @@ import http from 'node:http';
 import path from 'node:path';
 import fs from 'node:fs';
 import { URL } from 'node:url';
-import argv from '../lib/argv';
-import FileDiffServer from '../lib/server';
-import registerRoutes from '../lib/routes';
-import {open} from '../lib/utils';
-import logger from '../lib/logger';
+import argv from '@lib/argv';
+import FileDiffServer from '@lib/server';
+import registerRoutes from '@lib/routes';
+import {open} from '@lib/utils';
+import logger from '@lib/logger';
 
 const args = argv(process.argv.slice(2));
 

@@ -4,7 +4,9 @@ A browser-based git diff viewer. Run it in any git repo and it opens a clean, vi
 
 ## Why?
 
-I wanted to view the diffs of a local folder and be able to screen share it in a better way. The diffing view in the editor was not enough, so I built a CLI that serves a proper diff view in the browser.
+I wanted to view diffs of a local git directory in a better way. The diffing view in the editor felt too cramped and hard to view, especially across multiple files. I didn't want to push to a remote just to get a decent visual, and I didn't want to install a heavy GUI app for something that should be simple.
+
+So I built a small CLI that spins up a proper diff view in the browser. No extensions, no accounts — just one command and a clean view I can share my screen with.
 
 ![screenshot](./screenshot.png)
 
@@ -40,4 +42,4 @@ Options:
 Some libraries and tools that made it much simpler to build the UI.
 
 - [@pierre/diffs](https://diffs.com) for the diff rendering component that powers the diff view
-- [shadcn/ui](https://ui.shadcn.com) for the UI components that made building the interface a lot easier
+- [@base-ui/react](https://base-ui.com) for the UI components that made building the interface a lot easier

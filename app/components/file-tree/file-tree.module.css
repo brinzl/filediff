@@ -1,0 +1,89 @@
+.chevron {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+
+.chevron[data-open="true"] {
+  transform: rotate(90deg);
+}
+
+.iconPlaceholder {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+
+.spacer {
+  width: 0.75rem;
+  flex-shrink: 0;
+}
+
+.fileIcon {
+  flex-shrink: 0;
+}
+
+.fileName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusBadge {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.statusM {
+  color: oklch(87.9% 0.109 80.1);
+}
+
+.statusA {
+  color: oklch(83.6% 0.128 149.5);
+}
+
+.statusD {
+  color: oklch(72.2% 0.15 22.7);
+}
+
+.statusR {
+  color: oklch(74.6% 0.116 259.3);
+}
+
+.statusDefault {
+  color: var(--muted-foreground);
+}
+
+.fileNameM {
+  color: oklch(87.9% 0.109 80.1);
+}
+
+.fileNameA {
+  color: oklch(83.6% 0.128 149.5);
+}
+
+.fileNameD {
+  color: oklch(72.2% 0.15 22.7);
+}
+
+.fileNameR {
+  color: oklch(74.6% 0.116 259.3);
+}
+
+.directoryItem {
+  list-style: none;
+}
+
+.nestedList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuButtonGap {
+  gap: var(--space-1);
+}

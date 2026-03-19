@@ -3,13 +3,15 @@ import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import { AppSidebar } from "@/components/Sidebar";
-import { EmptyState } from "@/components/EmptyState";
-import { useQuery } from "@/hooks/useQuery";
+} from "@app/components/ui/sidebar/sidebar";
+import { AppSidebar } from "@app/components/sidebar/sidebar";
+import { EmptyState } from "@app/components/empty-state/empty-state";
+import { useQuery } from "@app/hooks/useQuery";
+import styles from "./app.module.css";
 
-const DiffViewer = lazy(() => import("@/components/DiffViewer").then((m) => ({ default: m.DiffViewer })));
+const DiffViewer = lazy(() =>
+  import("@app/components/diff-viewer/diff-viewer").then((m) => ({ default: m.DiffViewer })),
+);
 
 interface TreeNode {
   type: "file" | "directory";
@@ -51,11 +53,7 @@ export default function App() {
   const tree = treeData?.tree ?? [];
 
   if (!treeData) {
-    return (
-      <div className="flex h-screen items-center justify-center text-muted-foreground">
-        Loading...
-      </div>
-    );
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   return (
@@ -65,23 +63,26 @@ export default function App() {
         selectedPath={selectedPath}
         onFileSelect={setSelectedPath}
       />
-      <SidebarInset className="min-w-0">
-        <header className="flex h-10 items-center gap-2 border-b px-4 my-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 h-4" />
-          <h1 className="font-semibold">filediff</h1>
+      <SidebarInset>
+        <header className={styles.header}>
+          <SidebarTrigger className={styles.triggerOffset} />
+          <h1>filediff</h1>
           {info?.path && (
-            <span className="text-muted-foreground">{info.path}</span>
+            <span className={styles.repoPath}>{info.path}</span>
           )}
         </header>
-        <div className="flex-1 overflow-hidden">
+        <div className={styles.mainContent}>
           {diffData?.oldFile && diffData?.newFile ? (
-            <Suspense fallback={
-              <div className="flex h-full items-center justify-center text-muted-foreground">
-                Loading diff...
-              </div>
-            }>
-              <DiffViewer oldFile={diffData.oldFile} newFile={diffData.newFile} />
+            <Suspense
+              fallback={
+                <div className={styles.diffLoading}>Loading diff...</div>
+              }
+            >
+              <DiffViewer
+                oldFile={diffData.oldFile}
+                newFile={diffData.newFile}
+                filePath={`${info?.path ?? ""}/${selectedPath!}`}
+              />
             </Suspense>
           ) : (
             <EmptyState />

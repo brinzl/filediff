@@ -19,7 +19,8 @@
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/*"]
+      "@app/*": ["./app/*"],
+      "@lib/*": ["./lib/*"]
     },
     /* Linting */
     "strict": true,

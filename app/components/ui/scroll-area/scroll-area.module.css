@@ -1,0 +1,43 @@
+.root {
+  position: relative;
+}
+
+.viewport {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  transition: color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.viewport:focus-visible {
+  box-shadow: 0 0 0 3px oklch(from var(--ring) l c h / 0.5);
+  outline: 1px solid transparent;
+}
+
+.scrollbar {
+  display: flex;
+  touch-action: none;
+  user-select: none;
+  padding: var(--space-px);
+  transition: background-color 0.15s;
+}
+
+.scrollbar[data-orientation="vertical"] {
+  height: 100%;
+  width: 10px;
+  border-left: 1px solid transparent;
+}
+
+.scrollbar[data-orientation="horizontal"] {
+  height: 10px;
+  flex-direction: column;
+  border-top: 1px solid transparent;
+}
+
+.thumb {
+  position: relative;
+  flex: 1;
+  border-radius: 9999px;
+  background-color: var(--border);
+}

@@ -1,0 +1,171 @@
+.button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.15s;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+.button:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px oklch(from var(--ring) l c h / 0.5);
+}
+
+.button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.button svg {
+  pointer-events: none;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.button[data-variant="default"] {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.button[data-variant="default"]:hover {
+  background-color: oklch(from var(--primary) l c h / 0.9);
+}
+
+.button[data-variant="destructive"] {
+  background-color: var(--destructive);
+  color: white;
+}
+
+.button[data-variant="destructive"]:hover {
+  background-color: oklch(from var(--destructive) l c h / 0.9);
+}
+
+.button[data-variant="destructive"]:focus-visible {
+  box-shadow: 0 0 0 3px oklch(from var(--destructive) l c h / 0.2);
+}
+
+.button[data-variant="outline"] {
+  border: 1px solid var(--border);
+  background-color: var(--background);
+  box-shadow: 0 1px 2px oklch(0% 0 0 / 0.05);
+}
+
+.button[data-variant="outline"]:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.button[data-variant="secondary"] {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.button[data-variant="secondary"]:hover {
+  background-color: oklch(from var(--secondary) l c h / 0.8);
+}
+
+.button[data-variant="ghost"] {
+  background: transparent;
+}
+
+.button[data-variant="ghost"]:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.button[data-variant="link"] {
+  color: var(--primary);
+  text-underline-offset: 4px;
+}
+
+.button[data-variant="link"]:hover {
+  text-decoration: underline;
+}
+
+.button[data-size="default"] {
+  height: 2.25rem;
+  padding: var(--space-2) var(--space-4);
+}
+
+.button[data-size="default"]:has(> svg) {
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+}
+
+.button[data-size="xs"] {
+  height: 1.5rem;
+  gap: var(--space-1);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-2);
+  font-size: 0.75rem;
+}
+
+.button[data-size="xs"]:has(> svg) {
+  padding-left: var(--space-1\.5);
+  padding-right: var(--space-1\.5);
+}
+
+.button[data-size="xs"] svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.button[data-size="sm"] {
+  height: 2rem;
+  gap: var(--space-1\.5);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-3);
+}
+
+.button[data-size="sm"]:has(> svg) {
+  padding-left: var(--space-2\.5);
+  padding-right: var(--space-2\.5);
+}
+
+.button[data-size="lg"] {
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-6);
+}
+
+.button[data-size="lg"]:has(> svg) {
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+.button[data-size="icon"] {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.button[data-size="icon-xs"] {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius-md);
+}
+
+.button[data-size="icon-xs"] svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.button[data-size="icon-sm"] {
+  width: 2rem;
+  height: 2rem;
+}
+
+.button[data-size="icon-lg"] {
+  width: 2.5rem;
+  height: 2.5rem;
+}

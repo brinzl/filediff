@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  color: var(--muted-foreground);
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+  opacity: 0.5;
+}

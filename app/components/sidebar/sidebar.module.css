@@ -1,0 +1,68 @@
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+}
+
+.headerIcon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.headerTitle {
+  font-weight: 500;
+}
+
+.headerBadge {
+  margin-left: auto;
+  border-radius: 9999px;
+  background-color: var(--sidebar-accent);
+  padding: var(--space-0\.5) var(--space-2);
+  color: var(--muted-foreground);
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+}
+
+.labelFlex {
+  flex: 1;
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-0\.5);
+  padding-right: var(--space-2);
+}
+
+.actionButton {
+  display: flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: var(--muted-foreground);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.actionButton:hover {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+
+.actionButtonIcon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.noGap {
+  gap: 0;
+}

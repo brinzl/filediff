@@ -1,15 +1,15 @@
 import path from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
 
 const isSSR = process.argv.includes('--ssr')
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './app'),
+      '@app': path.resolve(__dirname, './app'),
+      '@lib': path.resolve(__dirname, './lib'),
     },
   },
   root: isSSR ? '.' : 'app',
@@ -30,7 +30,7 @@ export default defineConfig({
         rollupOptions: {
           output: {
             manualChunks: {
-              'radix-vendor': ['radix-ui'],
+              'base-ui-vendor': ['@base-ui/react'],
             },
           },
         },
